@@ -12,6 +12,18 @@ class AppStyles {
   fontSize: 32,
   fontWeight: FontWeight.w900,
   );
+  static TextStyle normalGreenTextStyle =GoogleFonts.openSans()
+      .copyWith(
+    color: AppColors.textColorGreen,
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+  );
+  static TextStyle normalYellowTextStyle =GoogleFonts.openSans()
+      .copyWith(
+    color: AppColors.textColorYellow,
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+  );
   static TextStyle buttonTextStyle =GoogleFonts.openSans()
       .copyWith(
     color: AppColors.primaryColor,

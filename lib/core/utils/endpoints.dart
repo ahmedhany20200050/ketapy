@@ -1,21 +1,10 @@
 class EndPoints {
   static String baseUrl = 'https://codingarabic.online/api';
-  static String homeEndpoint = '/home/index';
   static String registerEndpoint = '/register';
   static String loginEndpoint = '/login';
-  static String appointmentStoreEndpoint = '/appointment/store';
-  static String doctorShowEndpoint = '/doctor/show/';
-  static String userProfileEndpoint = '/user/profile';
-  static String historyEndpoint = '/appointment/index';
-  static String allDoctorsEndpoint = '/doctor/index';
-  static String logoutEndpoint = '/auth/logout';
-  static String citiesOfGovernmentEndPoint(int governmentId) =>
-      '/city/show/$governmentId';
-  static String getAllGovernmentsEndPoint = "/governrate/index";
-  static String getAllSpecializationsEndPoint = "/specialization/index";
-  static String getAllCitiesEndPoint = "/city/index";
-  static String filterDoctorsEndpoint(
-          {required int cityId, required int specializationId,required governorateId}) =>
-      "/doctor/doctor-filter?city=$cityId&specialization=$specializationId&governrate=$governorateId";
-  static String updateProfileEndpoint = "/user/update";
+  static String sliderEndpoint = '/sliders';
+  static String bestSellerEndpoint = '/products-bestseller';
+  static String newArrivalsEndpoint = '/products-new-arrivals';
+  static String categoriesEndpoint = '/categories';
+
 }

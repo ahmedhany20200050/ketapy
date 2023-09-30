@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/app_colors.dart';
 import '../../../../core/app_styles.dart';
 import '../../../../core/utils/size_config.dart';
+import '../../../home/presentation/views/home_screen.dart';
 import '../../../login/presentation/views/login_screen.dart';
 import '../manger/cubit/register_cubit.dart';
 import '../manger/cubit/register_cubit_state.dart';
@@ -57,6 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             type: AnimatedSnackBarType.success,
             duration: const Duration(seconds: 4),
           ).show(context);
+          Navigator.of(context).pushReplacementNamed(HomeScreen.id);
         }
 
         if(state is RegisterCubitFailure){

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/app_colors.dart';
 import '../../../../core/app_styles.dart';
 import '../../../../core/utils/size_config.dart';
+import '../../../home/presentation/views/home_screen.dart';
 import '../../../register/presentation/views/register_screen.dart';
 import '../manger/cubit/login_cubit.dart';
 import '../manger/cubit/login_cubit_state.dart';
@@ -48,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
             type: AnimatedSnackBarType.success,
             duration: const Duration(seconds: 4),
           ).show(context);
+          Navigator.of(context).pushReplacementNamed(HomeScreen.id);
         }
         if (state is LoginCubitFailure) {
           if (state.err.containsKey('message')) {
@@ -203,8 +205,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                    style: AppStyles.buttonTextStyle,
                                 ),
                               ),
-                            )
+                            ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushReplacementNamed(HomeScreen.id);
+                        },
+                        child: Text("Skip?",style: AppStyles.titleTextStyle.copyWith(
+                            fontSize: 16
+                        ),),
+                      ),
                     ],
+
                   ),
                 ),
               ),

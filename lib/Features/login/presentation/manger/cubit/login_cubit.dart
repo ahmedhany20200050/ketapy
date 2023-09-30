@@ -1,19 +1,22 @@
 // ignore_for_file: missing_required_param
 import 'dart:convert';
+import 'package:eraa_books_store/Features/login/data/login_data_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import '../../../../../core/helpers/api.dart';
 import '../../../../../core/utils/endpoints.dart';
+import '../../../../Splash/presentation/views/splash_screen.dart';
 import 'login_cubit_state.dart';
 import 'package:http/http.dart'as http;
 
-
+late LoginDataModel loginDataModel;
 class LoginCubit extends Cubit<LoginCubitState> {
   LoginCubit() : super(LoginCubitInitial());
   late String token;
   var loginData;
+
   Future login({required String email, required String password,required bool keepMeLoggedIn}) async {
     emit(LoginCubitLoading());
     try {
@@ -31,10 +34,14 @@ class LoginCubit extends Cubit<LoginCubitState> {
       // print(response.body);
       if(response.statusCode>=200&&response.statusCode<300){
         emit(LoginCubitSuccess());
+        isLoggedIn=true;
+        loginDataModel=LoginDataModel.fromJson(data);
+        token = data['data']['token'];
+        var storage = const FlutterSecureStorage();
+        await storage.write(key: "loginData", value: response.body);
         if(keepMeLoggedIn){
-          token = data['data']['token'];
-          var storage = const FlutterSecureStorage();
-          await storage.write(key: "token", value: token);
+          var storage2= await SharedPreferences.getInstance();
+          await storage2.setBool("keepMeLoggedIn",keepMeLoggedIn);
         }
         if (kDebugMode) {
           print(token);
