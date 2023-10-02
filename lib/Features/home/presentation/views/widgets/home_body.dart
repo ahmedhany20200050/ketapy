@@ -74,8 +74,8 @@ class HomeBody extends StatelessWidget {
                   style: AppStyles.normalYellowTextStyle.copyWith(fontSize: 18),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: CategoriesList(),
               ),
               Padding(

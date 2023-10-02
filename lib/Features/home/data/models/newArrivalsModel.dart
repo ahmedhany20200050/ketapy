@@ -80,12 +80,13 @@ class Products {
         this.category});
 
   Products.fromJson(Map<String, dynamic> json) {
+    // print(object)
     id = json['id'];
     name = json['name'];
     description = json['description'];
     price = json['price'];
     discount = json['discount'];
-    priceAfterDiscount = json['price_after_discount'];
+    priceAfterDiscount = json['price_after_discount']+0.0;
     stock = json['stock'];
     bestSeller = json['best_seller'];
     image = json['image'];

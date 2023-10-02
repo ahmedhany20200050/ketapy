@@ -1,5 +1,7 @@
+import 'package:eraa_books_store/Features/all_books/presentation/views/books_screen.dart';
 import 'package:eraa_books_store/Features/home/presentation/views/widgets/custom_drawer.dart';
 import 'package:eraa_books_store/Features/home/presentation/views/widgets/home_body.dart';
+import 'package:eraa_books_store/Features/profile/presentation/views/profile_screen.dart';
 import 'package:eraa_books_store/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -14,14 +16,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  int index = 0;
+  int index = 1;
 
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
       HomeBody(scaffoldKey: _scaffoldKey),
-      Text("favoourite"),
-      Text("profile")
+      BooksScreen(),
+      Text("favourite"),
+      ProfileScreen(),
     ];
     return Scaffold(
       key: _scaffoldKey,
@@ -41,6 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: "Home",
+              backgroundColor: AppColors.primaryColor),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.book),
+              label: "All Books",
               backgroundColor: AppColors.primaryColor),
           BottomNavigationBarItem(
               icon: Icon(Icons.favorite),

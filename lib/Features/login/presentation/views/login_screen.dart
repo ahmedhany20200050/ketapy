@@ -115,6 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         obscureText: true,
                         controller: password,
+                        style: AppStyles.descriptionTextStyle,
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 16),

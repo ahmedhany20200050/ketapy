@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:eraa_books_store/Features/OnBoarding/presentation/views/first_on_boarding_screen.dart';
 import 'package:eraa_books_store/Features/Splash/presentation/views/splash_screen.dart';
+import 'package:eraa_books_store/Features/all_books/presentation/manager/cubit/books_cubit.dart';
 import 'package:eraa_books_store/Features/home/presentation/manager/best_seller_cubit.dart';
 import 'package:eraa_books_store/Features/home/presentation/manager/categories_cubit.dart';
 import 'package:eraa_books_store/Features/home/presentation/manager/new_arrivals_cubit.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<BestSellerCubit>(create: (context) => BestSellerCubit(),),
         BlocProvider<NewArrivalsCubit>(create: (context) => NewArrivalsCubit(),),
         BlocProvider<CategoriesCubit>(create: (context) => CategoriesCubit(),),
+        BlocProvider<SearchCubit>(create: (context) => SearchCubit(),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -30,7 +30,7 @@ class AppStyles {
     fontSize: 22,
     fontWeight: FontWeight.w900,
   );
-  static TextStyle descriptionTextStyle=TextStyle(
+  static const  TextStyle descriptionTextStyle=TextStyle(
     color: Color(0xFFFFEEC1),
     fontSize: 14,
     fontFamily: 'Inter',
