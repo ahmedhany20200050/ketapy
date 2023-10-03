@@ -9,7 +9,6 @@ class BookItemForVerticalLists extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(products.image!+ "  "+products.name!);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(

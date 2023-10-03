@@ -34,6 +34,7 @@ class NewArrivalsList extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return BookItem(
+                  listType: "new arrival list",
                   products: NewArrivalsCubit.get(context)
                       .model
                       .data!

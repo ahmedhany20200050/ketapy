@@ -35,6 +35,7 @@ class BestSellerList extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return BookItem(
+                  listType: "best seller list",
                   products:
                       BestSellerCubit.get(context).model.data!.products![index],
                 );

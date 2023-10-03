@@ -6,6 +6,8 @@ class EndPoints {
   static String bestSellerEndpoint = '/products-bestseller';
   static String newArrivalsEndpoint = '/products-new-arrivals';
   static String categoriesEndpoint = '/categories';
+  static String favouritesEndpoint = '/wishlist';
+  static String updateProfileEndpoint = '/update-profile';
   static String searchEndpoint(String name,int page)=>'/products-search?name=$name&page=$page';
 
 }

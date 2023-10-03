@@ -15,6 +15,9 @@ class Api {
     }
     http.Response response = await http.get(Uri.parse(url), headers: headers);
     if (response.statusCode >= 200 || response.statusCode < 300) {
+      if(url.contains("wish")){
+        print(jsonDecode(response.body));
+      }
       return jsonDecode(response.body);
     } else {
       throw Exception(

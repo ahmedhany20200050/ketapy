@@ -22,16 +22,13 @@ class CustomDrawer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image.network(
+              CircleAvatar(
+                radius: 60,
+                backgroundImage: NetworkImage(
                   "${loginDataModel.data?.user?.image}",
-                  fit: BoxFit.fill,
-                  width: 100,
-                  height: 100,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Text("${loginDataModel.data?.user?.name}",style: AppStyles.normalGreenTextStyle,),

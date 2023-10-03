@@ -1,23 +1,21 @@
-import 'package:eraa_books_store/Features/all_books/presentation/manager/cubit/books_cubit.dart';
-import 'package:eraa_books_store/Features/all_books/presentation/manager/cubit/books_states.dart';
 import 'package:eraa_books_store/Features/all_books/presentation/views/widgets/book_item_for_vertical_lists.dart';
-import 'package:eraa_books_store/Features/home/presentation/views/widgets/book_item.dart';
+import 'package:eraa_books_store/Features/favourites/data/favourite_model.dart';
+import 'package:eraa_books_store/Features/favourites/presentation/manager/cubit/favourites_states.dart';
+import 'package:eraa_books_store/Features/home/data/models/newArrivalsModel.dart';
 import 'package:eraa_books_store/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../home/data/models/newArrivalsModel.dart';
+import '../manager/cubit/favourites_cubit.dart';
 
-class BooksScreen extends StatefulWidget {
-  const BooksScreen({super.key});
+class FavouoritesScreen extends StatefulWidget {
+  const FavouoritesScreen({super.key});
 
   @override
-  State<BooksScreen> createState() => _BooksScreenState();
+  State<FavouoritesScreen> createState() => _FavouoritesScreenState();
 }
 
-class _BooksScreenState extends State<BooksScreen> {
-  TextEditingController search = TextEditingController();
-
+class _FavouoritesScreenState extends State<FavouoritesScreen> {
   ScrollController scrollController = ScrollController();
   bool isLoading=false;
 
@@ -31,7 +29,7 @@ class _BooksScreenState extends State<BooksScreen> {
           scrollController.offset) {
         setState(() {
           isLoading=true;
-          BlocProvider.of<SearchCubit>(context).searchBooks(search.text)
+          BlocProvider.of<FavouritesCubit>(context).getFavourites()
               .then((value) {isLoading=false;});
 
         });
@@ -41,7 +39,6 @@ class _BooksScreenState extends State<BooksScreen> {
   @override
   void dispose() {
     // TODO: implement dispose
-    search.dispose();
     scrollController.dispose();
     super.dispose();
   }
@@ -54,32 +51,25 @@ class _BooksScreenState extends State<BooksScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CustomTextFormField(
-              hintText: "Search",
-              prefixIcon: const Icon(Icons.search),
-              controller: search,
-              onChanged: (String value) {
-                BlocProvider.of<SearchCubit>(context)
-                  ..resetCubit()
-                  ..searchBooks(value);
-              },
-            ),
+
             const SizedBox(
-              height: 16,
+              height: 8,
             ),
             BlocProvider.value(
-              value: BlocProvider.of<SearchCubit>(context)
-                ..searchBooks(search.text),
-              child: BlocConsumer<SearchCubit, SearchCubitState>(
+              value: BlocProvider.of<FavouritesCubit>(context)
+                ..getFavourites(),
+              child: BlocConsumer<FavouritesCubit, FavouritesCubitState>(
                 listener: (context, state) {},
                 builder: (context, state) {
-                  var cubit = BlocProvider.of<SearchCubit>(context);
+                  var cubit = BlocProvider.of<FavouritesCubit>(context);
+                  print("Ui favourites");
+                  print(cubit.favourites);
                   return Expanded(
                     child: ListView.builder(
                       controller: scrollController,
-                      itemCount: cubit.products.length + 1,
+                      itemCount: cubit.favourites.length + 1,
                       itemBuilder: (context, index) {
-                        if (index == cubit.products.length) {
+                        if (index == cubit.favourites.length) {
                           if(!cubit.isThereNextPage){
                             return Container();
                           }
@@ -91,7 +81,20 @@ class _BooksScreenState extends State<BooksScreen> {
                             ),
                           );
                         } else {
-                          return BookItemForVerticalLists(products: cubit.products[index]);
+                          var fav=cubit.favourites[index];
+                          Products product=Products(
+                            name: fav.name,
+                            id: fav.id,
+                            description: fav.description,
+                            image: fav.image,
+                            bestSeller: fav.bestSeller,
+                            category: fav.category,
+                            discount: fav.discount,
+                            price: fav.price,
+                            priceAfterDiscount: (double.parse(fav.price!)*(fav.discount!/100)).ceilToDouble(),
+                            stock: fav.stock,
+                          );
+                          return BookItemForVerticalLists(products: product);
                         }
                       },
                     ),

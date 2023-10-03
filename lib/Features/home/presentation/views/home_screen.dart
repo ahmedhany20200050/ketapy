@@ -1,9 +1,13 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:eraa_books_store/Features/all_books/presentation/views/books_screen.dart';
+import 'package:eraa_books_store/Features/favourites/presentation/views/favourites_screen.dart';
 import 'package:eraa_books_store/Features/home/presentation/views/widgets/custom_drawer.dart';
 import 'package:eraa_books_store/Features/home/presentation/views/widgets/home_body.dart';
 import 'package:eraa_books_store/Features/profile/presentation/views/profile_screen.dart';
 import 'package:eraa_books_store/core/app_colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../../Splash/presentation/views/splash_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = "HomeScreen";
@@ -16,14 +20,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  int index = 1;
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
       HomeBody(scaffoldKey: _scaffoldKey),
       BooksScreen(),
-      Text("favourite"),
+      FavouoritesScreen(),
       ProfileScreen(),
     ];
     return Scaffold(
@@ -32,7 +36,19 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: const CustomDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) => setState(() {
-          index = value;
+          if(value>=2){
+            if(isLoggedIn) {
+              index = value;
+            }else{
+              AnimatedSnackBar.material(
+                'You are not logged In',
+                type: AnimatedSnackBarType.info,
+                duration: const Duration(seconds: 4),
+              ).show(context);
+            }
+          }else{
+            index = value;
+          }
         }),
         enableFeedback: true,
         currentIndex: index,
