@@ -27,12 +27,9 @@ class _FavouoritesScreenState extends State<FavouoritesScreen> {
       if(isLoading)return;
       if (scrollController.position.maxScrollExtent ==
           scrollController.offset) {
-        setState(() {
-          isLoading=true;
-          BlocProvider.of<FavouritesCubit>(context).getFavourites()
-              .then((value) {isLoading=false;});
 
-        });
+          isLoading=true;
+          BlocProvider.of<FavouritesCubit>(context).getFavourites().then((value) {isLoading=false;});
       }
     });
   }
@@ -56,14 +53,11 @@ class _FavouoritesScreenState extends State<FavouoritesScreen> {
               height: 8,
             ),
             BlocProvider.value(
-              value: BlocProvider.of<FavouritesCubit>(context)
-                ..getFavourites(),
+              value: BlocProvider.of<FavouritesCubit>(context)..resetCubit()..getFavourites(),
               child: BlocConsumer<FavouritesCubit, FavouritesCubitState>(
                 listener: (context, state) {},
                 builder: (context, state) {
                   var cubit = BlocProvider.of<FavouritesCubit>(context);
-                  print("Ui favourites");
-                  print(cubit.favourites);
                   return Expanded(
                     child: ListView.builder(
                       controller: scrollController,
@@ -94,7 +88,17 @@ class _FavouoritesScreenState extends State<FavouoritesScreen> {
                             priceAfterDiscount: (double.parse(fav.price!)*(fav.discount!/100)).ceilToDouble(),
                             stock: fav.stock,
                           );
-                          return BookItemForVerticalLists(products: product);
+                          return Row(
+                            children: [
+                              Expanded(child: BookItemForVerticalLists(products: product,listType: "favourites list",showLastRow: false,)),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: InkWell(onTap: (){
+                                  cubit.removeFavourites(product.id??1);
+                                },child: Ink(padding: const EdgeInsets.all(8),child: const Icon(Icons.delete,size: 22,color: Colors.red,))),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),

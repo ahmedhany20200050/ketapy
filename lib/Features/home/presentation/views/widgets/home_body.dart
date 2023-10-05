@@ -1,6 +1,8 @@
 
 
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:eraa_books_store/Features/cart/presentation/views/cart_screen.dart';
+import 'package:eraa_books_store/core/utils/not_logged_dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/app_colors.dart';
@@ -37,14 +39,11 @@ class HomeBody extends StatelessWidget {
                       if(isLoggedIn) {
                         _scaffoldKey.currentState?.openDrawer();
                       }else{
-                        AnimatedSnackBar.material(
-                          'You are not logged In',
-                          type: AnimatedSnackBarType.info,
-                          duration: const Duration(seconds: 4),
-                        ).show(context);
+                        NotLoggedInDialog.showNotLoggedDialog(context);
                       }
                     } ,
                     child: Ink(
+                      padding: const EdgeInsets.all(8),
                       child: const Icon(
                         Icons.menu,
                         color: AppColors.textColorGreen,
@@ -53,7 +52,16 @@ class HomeBody extends StatelessWidget {
                     ),
                   ),
                   InkWell(
+                    onTap: (){
+                      if(isLoggedIn) {
+                        Navigator.pushNamed(context, CartScreen.id);
+                      }else{
+                        NotLoggedInDialog.showNotLoggedDialog(context);
+                      }
+
+                    },
                     child: Ink(
+                      padding: const EdgeInsets.all(8),
                       child: const Icon(
                         Icons.shopping_cart,
                         color: AppColors.textColorGreen,

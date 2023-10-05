@@ -94,7 +94,7 @@ class BookItem extends StatelessWidget {
                 maxLines: 1,
               ),
               Text(
-                "\$${products.price}",
+                "EGP ${products.price}",
                 style: AppStyles.normalGreenTextStyle.copyWith(
                   decoration: TextDecoration.lineThrough,
                   decorationColor: AppColors.textColorGreen,
@@ -102,7 +102,7 @@ class BookItem extends StatelessWidget {
                 ),
               ),
               Text(
-                "\$${products.priceAfterDiscount}",
+                "EGP ${products.priceAfterDiscount}",
                 style: AppStyles.normalYellowTextStyle,
               ),
             ],

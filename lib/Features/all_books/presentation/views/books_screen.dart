@@ -1,3 +1,4 @@
+import 'package:eraa_books_store/Features/Splash/presentation/views/splash_screen.dart';
 import 'package:eraa_books_store/Features/all_books/presentation/manager/cubit/books_cubit.dart';
 import 'package:eraa_books_store/Features/all_books/presentation/manager/cubit/books_states.dart';
 import 'package:eraa_books_store/Features/all_books/presentation/views/widgets/book_item_for_vertical_lists.dart';
@@ -91,7 +92,7 @@ class _BooksScreenState extends State<BooksScreen> {
                             ),
                           );
                         } else {
-                          return BookItemForVerticalLists(products: cubit.products[index]);
+                          return BookItemForVerticalLists(products: cubit.products[index],listType: "All Books",showLastRow: isLoggedIn,);
                         }
                       },
                     ),

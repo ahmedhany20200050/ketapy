@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:eraa_books_store/Features/OnBoarding/presentation/views/first_on_boarding_screen.dart';
 import 'package:eraa_books_store/Features/Splash/presentation/views/splash_screen.dart';
 import 'package:eraa_books_store/Features/all_books/presentation/manager/cubit/books_cubit.dart';
+import 'package:eraa_books_store/Features/cart/presentation/manager/cubit/cart_cubit.dart';
+import 'package:eraa_books_store/Features/cart/presentation/views/cart_screen.dart';
 import 'package:eraa_books_store/Features/favourites/presentation/manager/cubit/favourites_cubit.dart';
 import 'package:eraa_books_store/Features/home/presentation/manager/best_seller_cubit.dart';
 import 'package:eraa_books_store/Features/home/presentation/manager/categories_cubit.dart';
@@ -40,7 +42,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<CategoriesCubit>(create: (context) => CategoriesCubit(),),
         BlocProvider<SearchCubit>(create: (context) => SearchCubit(),),
         BlocProvider<FavouritesCubit>(create: (context) => FavouritesCubit(),),
-        BlocProvider<UpdateProfileCubit>(create: (context) => UpdateProfileCubit(),)
+        BlocProvider<UpdateProfileCubit>(create: (context) => UpdateProfileCubit(),),
+        BlocProvider<CartCubit>(create: (context) => CartCubit(),),
 
       ],
       child: MaterialApp(
@@ -59,7 +62,8 @@ class MyApp extends StatelessWidget {
           SplashScreen.id:(context) => const SplashScreen(),
           FirstOnBoardingScreen.id:(context) => const FirstOnBoardingScreen(),
           SecondOnBoardingScreen.id:(context) => const SecondOnBoardingScreen(),
-          HomeScreen.id:(context) =>  HomeScreen(),
+          HomeScreen.id:(context) =>  const HomeScreen(),
+          CartScreen.id:(context) => const CartScreen(),
         },
       ),
     );

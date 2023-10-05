@@ -7,3 +7,5 @@ final class FavouritesCubitFailure extends FavouritesCubitState {
   Map<String,dynamic> err;
   FavouritesCubitFailure({required this.err});
 }
+
+

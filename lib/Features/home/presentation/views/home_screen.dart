@@ -5,6 +5,8 @@ import 'package:eraa_books_store/Features/home/presentation/views/widgets/custom
 import 'package:eraa_books_store/Features/home/presentation/views/widgets/home_body.dart';
 import 'package:eraa_books_store/Features/profile/presentation/views/profile_screen.dart';
 import 'package:eraa_books_store/core/app_colors.dart';
+import 'package:eraa_books_store/core/app_styles.dart';
+import 'package:eraa_books_store/core/utils/not_logged_dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Splash/presentation/views/splash_screen.dart';
@@ -26,9 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     List<Widget> screens = [
       HomeBody(scaffoldKey: _scaffoldKey),
-      BooksScreen(),
-      FavouoritesScreen(),
-      ProfileScreen(),
+      const BooksScreen(),
+      const FavouoritesScreen(),
+      const ProfileScreen(),
     ];
     return Scaffold(
       key: _scaffoldKey,
@@ -40,11 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             if(isLoggedIn) {
               index = value;
             }else{
-              AnimatedSnackBar.material(
-                'You are not logged In',
-                type: AnimatedSnackBarType.info,
-                duration: const Duration(seconds: 4),
-              ).show(context);
+              NotLoggedInDialog.showNotLoggedDialog(context);
             }
           }else{
             index = value;
@@ -75,10 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: AppColors.primaryColor),
         ],
       ),
-      body: IndexedStack(
-        index: index,
-        children: screens,
-      ),
+      body: screens[index],
+
     );
   }
 }

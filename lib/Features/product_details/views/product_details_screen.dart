@@ -1,10 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraa_books_store/Features/cart/presentation/views/cart_screen.dart';
+import 'package:eraa_books_store/Features/favourites/presentation/manager/cubit/favourites_cubit.dart';
 import 'package:eraa_books_store/Features/home/data/models/newArrivalsModel.dart';
 import 'package:eraa_books_store/core/app_colors.dart';
 import 'package:eraa_books_store/core/app_styles.dart';
 import 'package:eraa_books_store/core/widgets/custom_button.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
+
+import '../../cart/presentation/manager/cubit/cart_cubit.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key, required this.product, this.heroTagForBookImage=""});
@@ -30,8 +34,13 @@ class ProductDetailsScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(onTap: (){Navigator.of(context).pop();},child: Ink(child: Icon(Icons.arrow_back,color: Colors.teal,size: 32,))),
-                          InkWell(onTap: (){},child: Ink(child: Icon(Icons.favorite_border_outlined,color: Colors.teal,size: 32,),)),
+                          InkWell(onTap: (){Navigator.of(context).pop();},child: Ink(padding: EdgeInsets.all(8),child: Icon(Icons.arrow_back,color: Colors.teal,size: 32,))),
+                          InkWell(
+                            onTap: (){
+                              FavouritesCubit.get(context).addFavourites(product.id??0, context);
+                            },
+                            child: Ink(padding: const EdgeInsets.all(8),child: Icon(Icons.favorite,color: Colors.teal,size: 32,)),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -83,18 +92,34 @@ class ProductDetailsScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text("${product.price}\$",style: AppStyles.normalGreenTextStyle.copyWith(
+                      Text("${product.price} EGP",style: AppStyles.normalGreenTextStyle.copyWith(
                         decoration: TextDecoration.lineThrough,
                         decorationThickness: 4,
                         decorationColor: AppColors.textColorGreen,
                       ),),
                       const SizedBox(width: 8,),
-                      Text("${product.priceAfterDiscount}\$",style: AppStyles.descriptionTextStyle.copyWith(
+                      Text("${product.priceAfterDiscount} EGP",style: AppStyles.descriptionTextStyle.copyWith(
                         fontSize: 22,
                       ),)
                     ],
                   ),
-                  CustomButton(buttonText: "Add To Cart"),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomButton(buttonText: "Add To Cart",onPressed: (){
+                          CartCubit.get(context).addCart(product.id??1, context);
+                        }),
+                      ),
+                      InkWell(onTap: (){
+                        Navigator.pushNamed(context, CartScreen.id);
+                      },child: Ink(child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Icon(Icons.shopping_cart_sharp,color: Colors.teal,size: 32,),
+                      ),)),
+
+                      
+                    ],
+                  ),
                 ],
               ),
             ),
