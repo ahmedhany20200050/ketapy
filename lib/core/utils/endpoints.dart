@@ -8,6 +8,8 @@ class EndPoints {
   static String categoriesEndpoint = '/categories';
   static String favouritesEndpoint(int page)=> '/wishlist?page=$page';
   static String cartEndpoint = '/cart';
+  static String placeOrderEndpoint='/place-order';
+  static String governmentsEndpoint='/governorates';
   static String updateCartEndpoint = '/update-cart';
   static String removeFavouritesEndpoint = '/remove-from-wishlist';
   static String removeCartEndpoint = '/remove-from-cart';

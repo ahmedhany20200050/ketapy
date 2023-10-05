@@ -20,7 +20,6 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState>{
       String name,
       String phone,
       String address,
-      String city,
       ) async {
       emit(UpdateProfileCubitLoading());
       try{
@@ -39,7 +38,6 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState>{
         // Add other parameters using the fields property
         request.fields['name'] = name; // Replace with your parameter names and values
         request.fields['address'] = address;
-        request.fields['city'] = city;
         request.fields['phone'] = phone;
         request.headers['Authorization'] = 'Bearer ${loginDataModel.data?.token}';
 

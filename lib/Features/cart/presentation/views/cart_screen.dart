@@ -1,6 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:eraa_books_store/Features/all_books/presentation/views/widgets/book_item_for_vertical_lists.dart';
 import 'package:eraa_books_store/Features/cart/presentation/manager/cubit/cart_states.dart';
+import 'package:eraa_books_store/Features/checkout/presentation/views/checkout_screen.dart';
 import 'package:eraa_books_store/Features/favourites/presentation/manager/cubit/favourites_states.dart';
 import 'package:eraa_books_store/Features/home/data/models/newArrivalsModel.dart';
 import 'package:flutter/material.dart';
@@ -149,7 +150,9 @@ class _CartScreenState extends State<CartScreen> {
                                     ),)
                                   ],
                                 ),
-                                 CustomButton(buttonText: "Checkout"),
+                                 CustomButton(buttonText: "Checkout",onPressed: (){
+                                   Navigator.pushNamed(context, CheckoutScreen.id);
+                                 }),
                               ],
                             ),
                           ),

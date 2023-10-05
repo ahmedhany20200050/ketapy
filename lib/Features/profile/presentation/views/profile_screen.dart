@@ -26,7 +26,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   XFile? image;
   TextEditingController name = TextEditingController();
   TextEditingController phone = TextEditingController();
-  TextEditingController city = TextEditingController();
   TextEditingController address = TextEditingController();
 
   @override
@@ -82,9 +81,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               final picker = ImagePicker();
                               image = await picker.pickImage(
                                   source: ImageSource.gallery);
-                              if(image!=null)
-                              await UpdateProfileCubit.get(context).updateProfile(
-                                  image, loginDataModel.data?.user?.name??"", loginDataModel.data?.user?.phone??"", loginDataModel.data?.user?.address??"", loginDataModel.data?.user?.city??"");
+                              if(image!=null) {
+                                await UpdateProfileCubit.get(context).updateProfile(
+                                  image, loginDataModel.data?.user?.name??"", loginDataModel.data?.user?.phone??"", loginDataModel.data?.user?.address??"");
+                              }
                           },
                           child: CircleAvatar(
                             radius: 90,
@@ -190,17 +190,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 16,
                     ),
                     CustomTextFormField(
-                      controller: city
-                        ..text = loginDataModel.data?.user?.city ?? "",
-                      prefixIcon: const Icon(
-                        Icons.location_city_outlined,
-                      ),
-                      isEnabled: isEnabled,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    CustomTextFormField(
                       controller: address
                         ..text = loginDataModel.data?.user?.address ?? "",
                       prefixIcon: const Icon(
@@ -217,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onPressed: () async {
                               await UpdateProfileCubit.get(context)
                                   .updateProfile(image, name.text, phone.text,
-                                      address.text, city.text);
+                                      address.text);
                             },
                           )
                         : Container(),

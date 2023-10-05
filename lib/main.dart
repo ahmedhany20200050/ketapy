@@ -4,6 +4,10 @@ import 'package:eraa_books_store/Features/Splash/presentation/views/splash_scree
 import 'package:eraa_books_store/Features/all_books/presentation/manager/cubit/books_cubit.dart';
 import 'package:eraa_books_store/Features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:eraa_books_store/Features/cart/presentation/views/cart_screen.dart';
+import 'package:eraa_books_store/Features/checkout/presentation/manager/cubit/checkout_cubit.dart';
+import 'package:eraa_books_store/Features/checkout/presentation/manager/cubit/governments_cubit.dart';
+import 'package:eraa_books_store/Features/checkout/presentation/manager/cubit/place_order_cubit.dart';
+import 'package:eraa_books_store/Features/checkout/presentation/views/checkout_screen.dart';
 import 'package:eraa_books_store/Features/favourites/presentation/manager/cubit/favourites_cubit.dart';
 import 'package:eraa_books_store/Features/home/presentation/manager/best_seller_cubit.dart';
 import 'package:eraa_books_store/Features/home/presentation/manager/categories_cubit.dart';
@@ -44,7 +48,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<FavouritesCubit>(create: (context) => FavouritesCubit(),),
         BlocProvider<UpdateProfileCubit>(create: (context) => UpdateProfileCubit(),),
         BlocProvider<CartCubit>(create: (context) => CartCubit(),),
-
+        BlocProvider<CheckoutCubit>(create: (context) => CheckoutCubit(),),
+        BlocProvider<GovCubit>(create: (context) => GovCubit(),),
+        BlocProvider<PlaceOrderCubit>(create: (context) => PlaceOrderCubit(),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -64,6 +70,7 @@ class MyApp extends StatelessWidget {
           SecondOnBoardingScreen.id:(context) => const SecondOnBoardingScreen(),
           HomeScreen.id:(context) =>  const HomeScreen(),
           CartScreen.id:(context) => const CartScreen(),
+          CheckoutScreen.id:(context) => const CheckoutScreen(),
         },
       ),
     );

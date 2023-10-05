@@ -2,12 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraa_books_store/Features/cart/presentation/views/cart_screen.dart';
 import 'package:eraa_books_store/Features/favourites/presentation/manager/cubit/favourites_cubit.dart';
 import 'package:eraa_books_store/Features/home/data/models/newArrivalsModel.dart';
+import 'package:eraa_books_store/Features/login/presentation/manger/cubit/login_cubit.dart';
 import 'package:eraa_books_store/core/app_colors.dart';
 import 'package:eraa_books_store/core/app_styles.dart';
 import 'package:eraa_books_store/core/widgets/custom_button.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/not_logged_dialog.dart';
+import '../../Splash/presentation/views/splash_screen.dart';
 import '../../cart/presentation/manager/cubit/cart_cubit.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -37,7 +40,12 @@ class ProductDetailsScreen extends StatelessWidget {
                           InkWell(onTap: (){Navigator.of(context).pop();},child: Ink(padding: EdgeInsets.all(8),child: Icon(Icons.arrow_back,color: Colors.teal,size: 32,))),
                           InkWell(
                             onTap: (){
-                              FavouritesCubit.get(context).addFavourites(product.id??0, context);
+                              if(isLoggedIn){
+                                FavouritesCubit.get(context).addFavourites(product.id??0, context);
+                              }else{
+                                NotLoggedInDialog.showNotLoggedDialog(context);
+                              }
+
                             },
                             child: Ink(padding: const EdgeInsets.all(8),child: Icon(Icons.favorite,color: Colors.teal,size: 32,)),
                           ),
@@ -107,11 +115,21 @@ class ProductDetailsScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: CustomButton(buttonText: "Add To Cart",onPressed: (){
-                          CartCubit.get(context).addCart(product.id??1, context);
+                          if(isLoggedIn){
+                            CartCubit.get(context).addCart(product.id??1, context);
+                          }else{
+                            NotLoggedInDialog.showNotLoggedDialog(context);
+                          }
+
                         }),
                       ),
                       InkWell(onTap: (){
-                        Navigator.pushNamed(context, CartScreen.id);
+                        if(isLoggedIn){
+                          Navigator.pushNamed(context, CartScreen.id);
+                        }else{
+                          NotLoggedInDialog.showNotLoggedDialog(context);
+                        }
+
                       },child: Ink(child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Icon(Icons.shopping_cart_sharp,color: Colors.teal,size: 32,),
